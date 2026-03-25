@@ -1,0 +1,47 @@
+command:
+  - ${env}
+  - torchrun
+  - --standalone
+  - --nproc_per_node=1
+  - ${program}
+  - ${args}
+program: scripts/eval_language_model.py
+entity: rylan
+project: scaling-memorization-eval
+method: grid
+parameters:
+  data_config:
+    parameters:
+      corpus:
+        values: [ "fineweb-edu-dedup" ]
+      direction:
+        values: [ "top", "bot" ]
+      shuffle_seed:
+        values: [ 0 , 1 ]
+      train_test_split_seed:
+        values: [ 0 ]
+  model_config:
+    parameters:
+      attn_implementation:
+        values: [ "flash_attention_2" ]
+      model_name:
+        values: [
+          "RylanSchaeffer/scale_mem_Qwen3-34M_epch_1_ot_1_s_0_dir_top_shfs_0_ttss_0",
+          "RylanSchaeffer/scale_mem_Qwen3-34M_epch_1_ot_1_s_0_dir_top_shfs_1_ttss_0",
+          "RylanSchaeffer/scale_mem_Qwen3-34M_epch_1_ot_1_s_0_dir_bot_shfs_0_ttss_0",
+          "RylanSchaeffer/scale_mem_Qwen3-34M_epch_1_ot_1_s_0_dir_bot_shfs_1_ttss_0",
+        ]
+      torch_dtype:
+        values: [ "bfloat16" ]
+  trainer_config:
+    parameters:
+      batch_size:
+        values: [ 38 ]
+      max_length:
+        values: [ 2048 ]
+      num_train_epochs:
+        values: [ 1 ]
+      target_num_training_tokens_total:
+        values: [ 10_000_000 ]
+  seed:
+    values: [ 0 ]
