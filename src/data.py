@@ -102,6 +102,15 @@ def create_dataset_for_pretraining(
     )
     corpus_eval_dataset_cache_dir = os.path.join(hf_cache_root, "corpus_eval_tokenized")
 
+    # claude suggests this change
+    # cache_is_ready = os.path.exists(
+    #     os.path.join(corpus_train_dataset_subset_cache_dir, "state.json")
+    # ) and os.path.exists(
+    #     os.path.join(corpus_eval_dataset_cache_dir, "state.json")
+    # )
+
+    # if _is_main() and not cache_is_ready:
+
     if _is_main():
         num_proc = min(64, os.cpu_count())
 
@@ -234,20 +243,32 @@ def create_dataset_for_pretraining(
                 f"({actual_non_repeated_tokens / num_training_tokens_per_epoch:.2%} of target)"
             )
 
-            # Create the final dataset by concatenating repeated copies with non-repeated.
-            # The repeated docs appear num_repeats times.
-            repeated_copies = [repeated_docs] * num_repeats
-            corpus_train_dataset_subset = concatenate_datasets(
-                repeated_copies + [non_repeated_docs]
-            )
+            # OLD: concatenate_datasets + shuffle + flatten_indices took 2+ hours for high
+            # num_repeats (e.g. 10000) because flatten_indices had to materialize ~1.74M rows.
+            # That blocked the torchrun process long enough to time out the c10d rendezvous
+            # heartbeat (60s). Commented out in favor of the select() approach below.
+            #
+            # repeated_copies = [repeated_docs] * num_repeats
+            # corpus_train_dataset_subset = concatenate_datasets(
+            #     repeated_copies + [non_repeated_docs]
+            # )
+            # corpus_train_dataset_subset = corpus_train_dataset_subset.shuffle(
+            #     seed=data_config["shuffle_seed"]
+            # )
+            # corpus_train_dataset_subset = corpus_train_dataset_subset.flatten_indices(num_proc=num_proc)
 
-            # Shuffle the final dataset so repeated docs are distributed throughout.
-            corpus_train_dataset_subset = corpus_train_dataset_subset.shuffle(
-                seed=data_config["shuffle_seed"]
-            )
-
-            
-            corpus_train_dataset_subset = corpus_train_dataset_subset.flatten_indices(num_proc=num_proc)
+            # Build the final index array in numpy: repeated doc indices appear num_repeats
+            # times, non-repeated indices once. Shuffle in numpy, then use .select() which
+            # stores a lazy index mapping — no physical copy / flatten needed.
+            # NOTE: this uses numpy's RNG with the same seed, so the shuffle ordering will
+            # differ from the old HF-based shuffle. Results are not bit-for-bit reproducible
+            # with any runs that used the old code path.
+            repeated_idx = np.repeat(np.arange(idx_repeated_end), num_repeats)
+            non_repeated_idx = np.arange(idx_repeated_end, idx_non_repeated_end)
+            all_final_indices = np.concatenate([repeated_idx, non_repeated_idx])
+            rng_final = np.random.default_rng(data_config["shuffle_seed"])
+            rng_final.shuffle(all_final_indices)
+            corpus_train_dataset_subset = corpus_train_dataset_subset.select(all_final_indices)
 
         else:
             # Standard case: no repetition.

@@ -7,7 +7,7 @@ command:
   - ${args}
 program: scripts/pretrain_language_model.py
 entity: jchud-stanford-university
-project: scaling-memorization-pt-repeated
+project: hernandez-replication
 method: grid
 parameters:
   data_config:
@@ -51,7 +51,7 @@ parameters:
       eval_strategy:
         values: [ steps ]
       eval_steps:
-        values: [ 280 ]
+        values: [ 550 ]
       gradient_checkpointing:
         values: [ False ]
       hub_strategy:
@@ -59,7 +59,7 @@ parameters:
       base_learning_rate:
         values: [ 0.000001 ]
       logging_steps:
-        values: [ 10 ]
+        values: [ 25 ]
       lr_scheduler_type:
         values: [ "cosine" ]
       max_grad_norm:
@@ -75,15 +75,17 @@ parameters:
       overtrain_multiplier:
         values: [ 1.0 ]
       per_device_eval_batch_size:
-        values: [ 18 ]
+        values: [ 32 ]
       per_device_train_batch_size:
-        values: [ 18 ]
+        values: [ 32 ]
       remove_unused_columns:
         values: [ True ]
       report_to:
         values: ["wandb"]
       save_strategy:
-        values: [ "no" ]
+        values: [ "steps" ]
+      save_steps:
+        values: [ 550 ]
       save_total_limit:
         values: [ 1 ]
       torch_compile:

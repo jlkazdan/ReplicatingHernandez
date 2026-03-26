@@ -8,8 +8,6 @@ command:
 program: scripts/pretrain_language_model.py
 entity: jchud-stanford-university
 project: hernandez-replication
-#entity: jkazdan
-#project: scaling-memorization-pt-repeated
 method: grid
 parameters:
   data_config:

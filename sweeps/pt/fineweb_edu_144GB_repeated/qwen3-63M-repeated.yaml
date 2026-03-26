@@ -5,9 +5,6 @@ command:
   - --nproc_per_node=1
   - ${program}
   - ${args}
-# program: scripts/pretrain_language_model.py
-# entity: rylan
-# project: scaling-memorization-pt-repeated
 program: scripts/pretrain_language_model.py
 entity: jchud-stanford-university
 project: hernandez-replication
@@ -20,13 +17,13 @@ parameters:
       direction:
         values: [ "top", "bot" ]
       shuffle_seed:
-        values: [ 0 , 1 ]
+        values: [ 0 ]
       train_test_split_seed:
         values: [ 0 ]
       repetition_budget:
         values: [ 0.1 ]
       num_repeats:
-        values: [ 10, 50, 100 ]
+        values: [   1,     3,    13,    51,   193,   719,  2682, 10000]
   model_config:
     parameters:
       attn_implementation:
@@ -54,7 +51,7 @@ parameters:
       eval_strategy:
         values: [ steps ]
       eval_steps:
-        values: [ 370 ]
+        values: [ 550 ]
       gradient_checkpointing:
         values: [ False ]
       hub_strategy:
@@ -62,7 +59,7 @@ parameters:
       base_learning_rate:
         values: [ 0.000001 ]
       logging_steps:
-        values: [ 10 ]
+        values: [ 25 ]
       lr_scheduler_type:
         values: [ "cosine" ]
       max_grad_norm:
@@ -78,15 +75,17 @@ parameters:
       overtrain_multiplier:
         values: [ 1.0 ]
       per_device_eval_batch_size:
-        values: [ 72 ]
+        values: [ 32 ]
       per_device_train_batch_size:
-        values: [ 72 ]
+        values: [ 32 ]
       remove_unused_columns:
         values: [ True ]
       report_to:
         values: ["wandb"]
       save_strategy:
-        values: [ "no" ]
+        values: [ "steps" ]
+      save_steps:
+        values: [ 550 ]
       save_total_limit:
         values: [ 1 ]
       torch_compile:
