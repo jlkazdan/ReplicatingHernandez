@@ -2,12 +2,12 @@ command:
   - ${env}
   - torchrun
   - --standalone
-  - --nproc_per_node=1
+  - --nproc_per_node=2
   - ${program}
   - ${args}
 program: scripts/pretrain_language_model.py
-entity: rylan
-project: scaling-memorization-pt-repeated
+entity: jchud-stanford-university
+project: hernandez-replication
 method: grid
 parameters:
   data_config:
@@ -17,13 +17,13 @@ parameters:
       direction:
         values: [ "top", "bot" ]
       shuffle_seed:
-        values: [ 0 , 1 ]
+        values: [ 0 ]
       train_test_split_seed:
         values: [ 0 ]
       repetition_budget:
         values: [ 0.1 ]
       num_repeats:
-        values: [ 10, 50, 100 ]
+        values: [   1,     3,    13,    51,   193,   719,  2682, 10000]
   model_config:
     parameters:
       attn_implementation:
@@ -75,9 +75,9 @@ parameters:
       overtrain_multiplier:
         values: [ 1.0 ]
       per_device_eval_batch_size:
-        values: [ 64 ]
+        values: [ 16 ]
       per_device_train_batch_size:
-        values: [ 64 ]
+        values: [ 16 ]
       remove_unused_columns:
         values: [ True ]
       report_to:
