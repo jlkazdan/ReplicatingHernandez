@@ -5,9 +5,12 @@ command:
   - --nproc_per_node=1
   - ${program}
   - ${args}
+# program: scripts/pretrain_language_model.py
+# entity: rylan
+# project: scaling-memorization-pt
 program: scripts/pretrain_language_model.py
-entity: rylan
-project: scaling-memorization-pt
+entity: jchud-stanford-university
+project: hernandez-replication
 method: grid
 parameters:
   data_config:
@@ -47,7 +50,7 @@ parameters:
       eval_strategy:
         values: [ steps ]
       eval_steps:
-        values: [ 280 ]
+        values: [ 550 ]
       gradient_checkpointing:
         values: [ False ]
       hub_strategy:
@@ -55,7 +58,7 @@ parameters:
       base_learning_rate:
         values: [ 0.000001 ]
       logging_steps:
-        values: [ 10 ]
+        values: [ 25 ]
       lr_scheduler_type:
         values: [ "cosine" ]
       max_grad_norm:
@@ -71,9 +74,9 @@ parameters:
       overtrain_multiplier:
         values: [ 1.0 ]
       per_device_eval_batch_size:
-        values: [ 72 ]
+        values: [ 64 ]
       per_device_train_batch_size:
-        values: [ 72 ]
+        values: [ 64 ]
       remove_unused_columns:
         values: [ True ]
       report_to:

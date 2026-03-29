@@ -23,7 +23,7 @@ parameters:
       repetition_budget:
         values: [ 0.1 ]
       num_repeats:
-        values: [   1,     3,    13,    51,   193,   719,  2682, 10000]
+        values: [99, 373, 1388] #[   1,     3,    13,    51,   193,   719,  2682, 10000]
   model_config:
     parameters:
       attn_implementation:
