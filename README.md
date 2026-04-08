@@ -1,4 +1,4 @@
-# KoyejoLab-Scaling-Memorization
+# Replicating Hernandez
 
 ## Setup
 
