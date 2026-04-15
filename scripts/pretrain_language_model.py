@@ -439,8 +439,8 @@ def initialize_wandb():
     # Use a consistent per-run HF datasets cache across all ranks.
     os.environ[
         "HF_DATASETS_CACHE"
-    ] = f"/data/hf_home/datasets/cached_datasets/{pted_model_hf_name}"
-
+    ] = f"{os.environ.get('HF_DATASETS_CACHE', '/lfs/skampere1/0/shared_hf_cache/datasets')}/cached_datasets/{pted_model_hf_name}"
+    
     return run, run_id, cfg_dict, pted_model_hf_name
 
 

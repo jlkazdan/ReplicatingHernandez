@@ -6,8 +6,8 @@ command:
   - ${program}
   - ${args}
 program: scripts/pretrain_language_model.py
-entity: rylan
-project: scaling-memorization-pt-repeated
+entity: jchud-stanford-university
+project: hernandez-replication
 method: grid
 parameters:
   data_config:
