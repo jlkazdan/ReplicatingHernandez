@@ -1,0 +1,25 @@
+2026-04-21 11:29:24 === Sweep Monitor Check ===
+2026-04-21 11:29:25 Agent running (PID 3255495)
+2026-04-21 11:29:25 GPU 3 memory: 59373 MiB
+wandb: [wandb.Api()] Loaded credentials for https://api.wandb.ai from /lfs/skampere1/0/jchud/.netrc.
+Sweep: 0/6 done, 2 running, 2 failed
+  stilted-sweep-2 (yezci9hx): failed | nr=373 dir=top
+  worthy-sweep-3 (k4dxpc54): running | nr=1388 dir=top
+  swept-sweep-4 (qu181y6k): failed | nr=99 dir=bot
+  deft-sweep-5 (u8m28j6b): running | nr=373 dir=bot
+
+2026-04-21 11:42:57 === Sweep Monitor Check ===
+2026-04-21 11:42:57 Agent running (PID 3258879)
+2026-04-21 11:42:57 GPU 3 memory: 59565 MiB
+wandb: [wandb.Api()] Loaded credentials for https://api.wandb.ai from /lfs/skampere1/0/jchud/.netrc.
+Sweep: 0/6 done, 1 running, 1 failed
+  worthy-sweep-3 (k4dxpc54): running | nr=1388 dir=top
+  robust-sweep-6 (76vzojcu): failed | nr=1388 dir=bot
+
+2026-04-21 11:50:29 === Sweep Monitor Check ===
+2026-04-21 11:50:30 Agent running (PID 3287610)
+2026-04-21 11:50:30 GPU 3 memory: 58949 MiB
+wandb: [wandb.Api()] Loaded credentials for https://api.wandb.ai from /lfs/skampere1/0/jchud/.netrc.
+Sweep: 0/6 done, 1 running, 0 failed
+  peachy-sweep-1 (x0fnaxeg): running | nr=99 dir=top
+

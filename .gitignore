@@ -5,3 +5,5 @@ scaling_mem_env/
 my_snapshot.pickle
 __pycache__/
 .ipynb_checkpoints/
+models/
+models/

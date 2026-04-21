@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<title>W&B Runs — hernandez-replication</title>
+<style>
+  body { font-family: -apple-system, system-ui, sans-serif; margin: 20px; background: #f9fafb; }
+  h1 { font-size: 20px; }
+  .meta { color: #6b7280; margin-bottom: 16px; }
+  table { border-collapse: collapse; width: 100%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid #e5e7eb; font-size: 14px; }
+  th { background: #f3f4f6; font-weight: 600; position: sticky; top: 0; cursor: pointer; }
+  th:hover { background: #e5e7eb; }
+  tr:hover { background: #f9fafb; }
+  a { color: #2563eb; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .stats { display: flex; gap: 20px; margin-bottom: 16px; }
+  .stat { background: #fff; padding: 12px 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  .stat-num { font-size: 24px; font-weight: 700; }
+  .stat-label { color: #6b7280; font-size: 13px; }
+</style>
+</head><body>
+<h1>W&B Runs — jchud-stanford-university/hernandez-replication</h1>
+<div class="meta">Updated: 2026-04-21 07:19:24 UTC</div>
+<div class="stats">
+  <div class="stat"><div class="stat-num">6</div><div class="stat-label">Running</div></div>
+  <div class="stat"><div class="stat-num">118</div><div class="stat-label">Finished</div></div>
+  <div class="stat"><div class="stat-num">124</div><div class="stat-label">Total</div></div>
+</div>
+<table id="runs">
+<thead><tr>
+  <th onclick="sortTable(0)">Name</th>
+  <th onclick="sortTable(1)">State</th>
+  <th onclick="sortTable(2)">Model</th>
+  <th onclick="sortTable(3)">Repeated</th>
+  <th onclick="sortTable(4)">Num Repeats</th>
+  <th onclick="sortTable(5)">Rep Budget</th>
+  <th onclick="sortTable(6)">Duration</th>
+  <th onclick="sortTable(7)">Created</th>
+</tr></thead>
+<tbody><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/1ui118v5" target="_blank">lively-sweep-1</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>93M</td>
+  <td>non-repeated</td>
+  <td>1</td>
+  <td>10%</td>
+  <td>10h 13m</td>
+  <td>2026-03-01T09:31:53Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/s3dt7u96" target="_blank">fallen-sweep-1</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>93M</td>
+  <td>non-repeated</td>
+  <td>1</td>
+  <td>10%</td>
+  <td>10h 6m</td>
+  <td>2026-03-01T23:52:22Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/horc0tgt" target="_blank">still-sweep-2</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>93M</td>
+  <td>repeated</td>
+  <td>3</td>
+  <td>10%</td>
+  <td>10h 6m</td>
+  <td>2026-03-01T23:54:46Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/vs9gumvf" target="_blank">swift-sweep-5</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>93M</td>
+  <td>repeated</td>
+  <td>193</td>
+  <td>10%</td>
+  <td>10h 19m</td>
+  <td>2026-03-01T23:58:20Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/xaqinobu" target="_blank">rose-sweep-3</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>93M</td>
+  <td>repeated</td>
+  <td>13</td>
+  <td>10%</td>
+  <td>10h 15m</td>
+  <td>2026-03-02T00:03:29Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/6h2y0r09" target="_blank">unique-sweep-6</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>93M</td>
+  <td>repeated</td>
+  <td>719</td>
+  <td>10%</td>
+  <td>10h 11m</td>
+  <td>2026-03-02T00:03:58Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/rx8zortb" target="_blank">charmed-sweep-7</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>93M</td>
+  <td>repeated</td>
+  <td>2682</td>
+  <td>10%</td>
+  <td>10h 14m</td>
+  <td>2026-03-02T00:06:13Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/u0643fut" target="_blank">icy-sweep-8</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>93M</td>
+  <td>repeated</td>
+  <td>10000</td>
+  <td>10%</td>
+  <td>10h 34m</td>
+  <td>2026-03-02T00:13:33Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/xp5pqprg" target="_blank">jumping-sweep-9</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>93M</td>
+  <td>non-repeated</td>
+  <td>1</td>
+  <td>10%</td>
+  <td>10h 27m</td>
+  <td>2026-03-02T00:15:42Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/ft5jewzr" target="_blank">dry-sweep-10</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>93M</td>
+  <td>repeated</td>
+  <td>3</td>
+  <td>10%</td>
+  <td>10h 14m</td>
+  <td>2026-03-02T10:01:09Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/rnq1bvvv" target="_blank">stoic-sweep-11</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>93M</td>
+  <td>repeated</td>
+  <td>13</td>
+  <td>10%</td>
+  <td>10h 9m</td>
+  <td>2026-03-02T10:15:54Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/t6wujr80" target="_blank">smooth-sweep-12</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>93M</td>
+  <td>repeated</td>
+  <td>51</td>
+  <td>10%</td>
+  <td>10h 14m</td>
+  <td>2026-03-02T10:17:51Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/esa4cny8" target="_blank">fast-sweep-4</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>93M</td>
+  <td>repeated</td>
+  <td>51</td>
+  <td>10%</td>
+  <td>10h 8m</td>
+  <td>2026-03-02T10:19:16Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/c2iv8e9b" target="_blank">whole-sweep-13</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>93M</td>
+  <td>repeated</td>
+  <td>193</td>
+  <td>10%</td>
+  <td>10h 12m</td>
+  <td>2026-03-02T10:21:37Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/hiyx9ams" target="_blank">dauntless-sweep-14</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>93M</td>
+  <td>repeated</td>
+  <td>719</td>
+  <td>10%</td>
+  <td>10h 11m</td>
+  <td>2026-03-02T10:32:55Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/5ye352uq" target="_blank">comic-sweep-15</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>93M</td>
+  <td>repeated</td>
+  <td>2682</td>
+  <td>10%</td>
+  <td>10h 10m</td>
+  <td>2026-03-02T10:43:50Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/gxwgammw" target="_blank">balmy-sweep-16</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>93M</td>
+  <td>repeated</td>
+  <td>10000</td>
+  <td>10%</td>
+  <td>10h 12m</td>
+  <td>2026-03-02T10:48:47Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/nj8kngnd" target="_blank">smooth-sweep-5</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>93M</td>
+  <td>repeated</td>
+  <td>193</td>
+  <td>10%</td>
+  <td>10h 23m</td>
+  <td>2026-03-02T20:27:59Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/d27nn17m" target="_blank">swift-sweep-1</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>non-repeated</td>
+  <td>1</td>
+  <td>10%</td>
+  <td>6h 32m</td>
+  <td>2026-03-26T04:39:12Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/pg3pj4gv" target="_blank">kind-sweep-2</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>3</td>
+  <td>10%</td>
+  <td>6h 31m</td>
+  <td>2026-03-26T04:39:16Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/syd225jd" target="_blank">stellar-sweep-3</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>13</td>
+  <td>10%</td>
+  <td>6h 31m</td>
+  <td>2026-03-26T04:39:24Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/54sn51gk" target="_blank">happy-sweep-1</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>48M</td>
+  <td>non-repeated</td>
+  <td>1</td>
+  <td>10%</td>
+  <td>4h 25m</td>
+  <td>2026-03-26T04:40:10Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/7j5gn53c" target="_blank">fine-sweep-2</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>48M</td>
+  <td>repeated</td>
+  <td>3</td>
+  <td>10%</td>
+  <td>4h 24m</td>
+  <td>2026-03-26T04:40:13Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/8guwio80" target="_blank">wise-sweep-3</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>48M</td>
+  <td>repeated</td>
+  <td>13</td>
+  <td>10%</td>
+  <td>4h 25m</td>
+  <td>2026-03-26T04:40:18Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/0n1onduu" target="_blank">exalted-sweep-4</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>48M</td>
+  <td>repeated</td>
+  <td>51</td>
+  <td>10%</td>
+  <td>4h 25m</td>
+  <td>2026-03-26T04:40:21Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/5l7ccu1q" target="_blank">jumping-sweep-4</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>51</td>
+  <td>10%</td>
+  <td>6h 30m</td>
+  <td>2026-03-26T04:41:38Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/t3gzbakf" target="_blank">zesty-sweep-5</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>48M</td>
+  <td>repeated</td>
+  <td>193</td>
+  <td>10%</td>
+  <td>3h 46m</td>
+  <td>2026-03-26T09:05:30Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/mnwfabqi" target="_blank">dashing-sweep-6</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>48M</td>
+  <td>repeated</td>
+  <td>719</td>
+  <td>10%</td>
+  <td>3h 46m</td>
+  <td>2026-03-26T09:05:43Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/gk4tgwoo" target="_blank">glad-sweep-7</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>48M</td>
+  <td>repeated</td>
+  <td>2682</td>
+  <td>10%</td>
+  <td>3h 46m</td>
+  <td>2026-03-26T09:06:12Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/yxnbr42u" target="_blank">vibrant-sweep-8</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>48M</td>
+  <td>repeated</td>
+  <td>10000</td>
+  <td>10%</td>
+  <td>3h 46m</td>
+  <td>2026-03-26T09:06:31Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/cbon29mz" target="_blank">faithful-sweep-5</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>193</td>
+  <td>10%</td>
+  <td>5h 51m</td>
+  <td>2026-03-26T11:11:13Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/5k4dpvxn" target="_blank">eternal-sweep-6</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>719</td>
+  <td>10%</td>
+  <td>5h 51m</td>
+  <td>2026-03-26T11:11:35Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/6gdv6nt3" target="_blank">olive-sweep-7</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>2682</td>
+  <td>10%</td>
+  <td>6h 5m</td>
+  <td>2026-03-26T11:12:06Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/avqccfeb" target="_blank">sleek-sweep-8</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>10000</td>
+  <td>10%</td>
+  <td>6h 6m</td>
+  <td>2026-03-26T11:12:26Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/t1m3u36p" target="_blank">fancy-sweep-9</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>48M</td>
+  <td>non-repeated</td>
+  <td>1</td>
+  <td>10%</td>
+  <td>3h 56m</td>
+  <td>2026-03-26T12:52:04Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/3fdjehnt" target="_blank">polished-sweep-10</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>48M</td>
+  <td>repeated</td>
+  <td>3</td>
+  <td>10%</td>
+  <td>3h 55m</td>
+  <td>2026-03-26T12:52:43Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/xxne9d7i" target="_blank">vibrant-sweep-11</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>48M</td>
+  <td>repeated</td>
+  <td>13</td>
+  <td>10%</td>
+  <td>3h 55m</td>
+  <td>2026-03-26T12:53:14Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/xaw1lzo5" target="_blank">robust-sweep-12</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>48M</td>
+  <td>repeated</td>
+  <td>51</td>
+  <td>10%</td>
+  <td>3h 54m</td>
+  <td>2026-03-26T12:53:30Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/6wjd1ujl" target="_blank">glowing-sweep-13</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>48M</td>
+  <td>repeated</td>
+  <td>193</td>
+  <td>10%</td>
+  <td>3h 49m</td>
+  <td>2026-03-26T16:48:44Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/cx6zg36k" target="_blank">peachy-sweep-14</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>48M</td>
+  <td>repeated</td>
+  <td>719</td>
+  <td>10%</td>
+  <td>3h 49m</td>
+  <td>2026-03-26T16:48:52Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/cjsir07k" target="_blank">atomic-sweep-15</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>48M</td>
+  <td>repeated</td>
+  <td>2682</td>
+  <td>10%</td>
+  <td>3h 49m</td>
+  <td>2026-03-26T16:49:06Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/130tmu9k" target="_blank">ethereal-sweep-16</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>48M</td>
+  <td>repeated</td>
+  <td>10000</td>
+  <td>10%</td>
+  <td>3h 50m</td>
+  <td>2026-03-26T16:49:35Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/iap9hbx7" target="_blank">dazzling-sweep-9</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>non-repeated</td>
+  <td>1</td>
+  <td>10%</td>
+  <td>5h 47m</td>
+  <td>2026-03-26T17:03:54Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/uouf7uv2" target="_blank">stellar-sweep-10</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>3</td>
+  <td>10%</td>
+  <td>5h 47m</td>
+  <td>2026-03-26T17:04:23Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/e2766pbq" target="_blank">crimson-sweep-11</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>13</td>
+  <td>10%</td>
+  <td>5h 49m</td>
+  <td>2026-03-26T17:18:29Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/rse650n3" target="_blank">eager-sweep-12</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>51</td>
+  <td>10%</td>
+  <td>5h 48m</td>
+  <td>2026-03-26T17:19:18Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/hf7sbu5x" target="_blank">clear-sweep-13</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>193</td>
+  <td>10%</td>
+  <td>5h 48m</td>
+  <td>2026-03-26T22:51:39Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/79chky7k" target="_blank">visionary-sweep-14</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>719</td>
+  <td>10%</td>
+  <td>5h 48m</td>
+  <td>2026-03-26T22:51:47Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/t9f1lrnd" target="_blank">divine-sweep-15</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>2682</td>
+  <td>10%</td>
+  <td>5h 48m</td>
+  <td>2026-03-26T23:08:19Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/ez4ust4w" target="_blank">eternal-sweep-16</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>10000</td>
+  <td>10%</td>
+  <td>5h 48m</td>
+  <td>2026-03-26T23:08:23Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/fxu2u3yp" target="_blank">copper-sweep-1</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>153M</td>
+  <td>non-repeated</td>
+  <td>1</td>
+  <td>10%</td>
+  <td>13h 31m</td>
+  <td>2026-03-27T06:18:17Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/gv4p1x8n" target="_blank">fragrant-sweep-3</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>153M</td>
+  <td>repeated</td>
+  <td>13</td>
+  <td>10%</td>
+  <td>13h 29m</td>
+  <td>2026-03-27T06:21:13Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/igthwir5" target="_blank">rural-sweep-4</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>153M</td>
+  <td>repeated</td>
+  <td>51</td>
+  <td>10%</td>
+  <td>12h 59m</td>
+  <td>2026-03-27T08:10:02Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/pd594uuh" target="_blank">easy-sweep-5</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>153M</td>
+  <td>repeated</td>
+  <td>193</td>
+  <td>10%</td>
+  <td>13h 3m</td>
+  <td>2026-03-27T19:49:56Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/1uxjpt1j" target="_blank">vibrant-sweep-6</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>153M</td>
+  <td>repeated</td>
+  <td>719</td>
+  <td>10%</td>
+  <td>13h 3m</td>
+  <td>2026-03-27T19:50:39Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/fad2wzt3" target="_blank">glorious-sweep-7</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>153M</td>
+  <td>repeated</td>
+  <td>2682</td>
+  <td>10%</td>
+  <td>13h 4m</td>
+  <td>2026-03-27T19:53:03Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/1tnd3lg4" target="_blank">silver-sweep-8</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>153M</td>
+  <td>repeated</td>
+  <td>10000</td>
+  <td>10%</td>
+  <td>12h 56m</td>
+  <td>2026-03-27T21:10:02Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/9mluoqdg" target="_blank">ancient-sweep-9</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>153M</td>
+  <td>non-repeated</td>
+  <td>1</td>
+  <td>10%</td>
+  <td>13h 28m</td>
+  <td>2026-03-28T08:53:18Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/r4fzvx9j" target="_blank">stilted-sweep-10</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>153M</td>
+  <td>repeated</td>
+  <td>3</td>
+  <td>10%</td>
+  <td>13h 27m</td>
+  <td>2026-03-28T08:54:08Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/15ax4347" target="_blank">robust-sweep-11</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>153M</td>
+  <td>repeated</td>
+  <td>13</td>
+  <td>10%</td>
+  <td>13h 23m</td>
+  <td>2026-03-28T08:58:22Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/iotljrt5" target="_blank">stellar-sweep-1</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>48M</td>
+  <td>repeated</td>
+  <td>99</td>
+  <td>10%</td>
+  <td>4h 11m</td>
+  <td>2026-03-29T08:03:13Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/yb4ujxx5" target="_blank">brisk-sweep-1</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>99</td>
+  <td>10%</td>
+  <td>6h 17m</td>
+  <td>2026-03-29T08:06:13Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/zdzblo2m" target="_blank">upbeat-sweep-1</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>93M</td>
+  <td>repeated</td>
+  <td>99</td>
+  <td>10%</td>
+  <td>10h 45m</td>
+  <td>2026-03-29T08:09:13Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/9ox5oh2y" target="_blank">fluent-sweep-1</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>153M</td>
+  <td>repeated</td>
+  <td>99</td>
+  <td>10%</td>
+  <td>13h 33m</td>
+  <td>2026-03-29T08:10:38Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/q53ekyxa" target="_blank">genial-sweep-1</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>non-repeated</td>
+  <td>1</td>
+  <td>10%</td>
+  <td>2h 9m</td>
+  <td>2026-03-29T08:19:16Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/hok57d4v" target="_blank">classic-sweep-2</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>48M</td>
+  <td>repeated</td>
+  <td>373</td>
+  <td>10%</td>
+  <td>3h 49m</td>
+  <td>2026-03-29T08:42:38Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/xjhxmdmn" target="_blank">leafy-sweep-3</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>48M</td>
+  <td>repeated</td>
+  <td>1388</td>
+  <td>10%</td>
+  <td>3h 42m</td>
+  <td>2026-03-29T08:52:49Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/f4zeim6f" target="_blank">fast-sweep-2</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>non-repeated</td>
+  <td>1</td>
+  <td>10%</td>
+  <td>3h 21m</td>
+  <td>2026-03-29T10:29:41Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/bxxbcz28" target="_blank">upbeat-sweep-4</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>48M</td>
+  <td>repeated</td>
+  <td>99</td>
+  <td>10%</td>
+  <td>3h 49m</td>
+  <td>2026-03-29T12:14:54Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/k7yoqwt5" target="_blank">absurd-sweep-5</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>48M</td>
+  <td>repeated</td>
+  <td>373</td>
+  <td>10%</td>
+  <td>3h 42m</td>
+  <td>2026-03-29T12:35:14Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/c2fl8ns9" target="_blank">unique-sweep-4</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>48M</td>
+  <td>repeated</td>
+  <td>99</td>
+  <td>10%</td>
+  <td>3h 40m</td>
+  <td>2026-03-29T12:36:14Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/wjeeeld6" target="_blank">visionary-sweep-3</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>non-repeated</td>
+  <td>1</td>
+  <td>10%</td>
+  <td>11h 2m</td>
+  <td>2026-03-29T13:51:34Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/djfb274g" target="_blank">chocolate-sweep-2</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>373</td>
+  <td>10%</td>
+  <td>5h 46m</td>
+  <td>2026-03-29T14:24:18Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/dakq46d5" target="_blank">worldly-sweep-6</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>48M</td>
+  <td>repeated</td>
+  <td>1388</td>
+  <td>10%</td>
+  <td>3h 41m</td>
+  <td>2026-03-29T16:04:32Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/zrqpo0ej" target="_blank">comfy-sweep-5</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>48M</td>
+  <td>repeated</td>
+  <td>373</td>
+  <td>10%</td>
+  <td>3h 38m</td>
+  <td>2026-03-29T16:16:57Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/e8ej9a6v" target="_blank">golden-sweep-2</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>93M</td>
+  <td>repeated</td>
+  <td>373</td>
+  <td>10%</td>
+  <td>10h 9m</td>
+  <td>2026-03-29T18:54:57Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/drrtmb3a" target="_blank">colorful-sweep-6</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>48M</td>
+  <td>repeated</td>
+  <td>1388</td>
+  <td>10%</td>
+  <td>3h 38m</td>
+  <td>2026-03-29T19:55:51Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/isxr0dbc" target="_blank">dulcet-sweep-3</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>1388</td>
+  <td>10%</td>
+  <td>5h 46m</td>
+  <td>2026-03-29T20:10:59Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/pf6lo9hj" target="_blank">light-sweep-2</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>153M</td>
+  <td>repeated</td>
+  <td>373</td>
+  <td>10%</td>
+  <td>12h 57m</td>
+  <td>2026-03-29T21:44:50Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/v0msb6bu" target="_blank">stoic-sweep-4</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>3</td>
+  <td>10%</td>
+  <td>1h 57m</td>
+  <td>2026-03-30T00:54:47Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/w14ecf62" target="_blank">still-sweep-4</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>99</td>
+  <td>10%</td>
+  <td>5h 48m</td>
+  <td>2026-03-30T01:57:44Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/ekoco3c9" target="_blank">splendid-sweep-5</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>3</td>
+  <td>10%</td>
+  <td>3h 21m</td>
+  <td>2026-03-30T02:52:15Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/gwm87q8b" target="_blank">astral-sweep-1</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>34M</td>
+  <td>non-repeated</td>
+  <td>1</td>
+  <td>10%</td>
+  <td>4h 7m</td>
+  <td>2026-04-15T17:11:10Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/ehxxxahe" target="_blank">upbeat-sweep-1</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>344M</td>
+  <td>repeated</td>
+  <td>10</td>
+  <td>10%</td>
+  <td>43h 24m</td>
+  <td>2026-04-15T17:28:32Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/8au9w6tq" target="_blank">celestial-sweep-1</a></td>
+  <td><span style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">running</span></td>
+  <td>344M</td>
+  <td>repeated</td>
+  <td>10</td>
+  <td>10%</td>
+  <td>133h 18m (running)</td>
+  <td>2026-04-15T18:01:22Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/3p3g8y92" target="_blank">wild-sweep-2</a></td>
+  <td><span style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">running</span></td>
+  <td>344M</td>
+  <td>repeated</td>
+  <td>10</td>
+  <td>10%</td>
+  <td>133h 18m (running)</td>
+  <td>2026-04-15T18:01:24Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/5t9th95i" target="_blank">devout-sweep-1</a></td>
+  <td><span style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">running</span></td>
+  <td>344M</td>
+  <td>repeated</td>
+  <td>10</td>
+  <td>10%</td>
+  <td>133h 11m (running)</td>
+  <td>2026-04-15T18:08:07Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/jonhly9f" target="_blank">robust-sweep-2</a></td>
+  <td><span style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">running</span></td>
+  <td>344M</td>
+  <td>repeated</td>
+  <td>10</td>
+  <td>10%</td>
+  <td>133h 11m (running)</td>
+  <td>2026-04-15T18:08:10Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/et2u4bjf" target="_blank">dauntless-sweep-2</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>34M</td>
+  <td>repeated</td>
+  <td>3</td>
+  <td>10%</td>
+  <td>4h 2m</td>
+  <td>2026-04-15T21:19:03Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/9phk06vc" target="_blank">snowy-sweep-3</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>3</td>
+  <td>10%</td>
+  <td>3h 30m</td>
+  <td>2026-04-15T22:56:41Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/bfw0t4bi" target="_blank">denim-sweep-3</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>34M</td>
+  <td>repeated</td>
+  <td>13</td>
+  <td>10%</td>
+  <td>4h 1m</td>
+  <td>2026-04-16T01:21:24Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/xwtuic79" target="_blank">worthy-sweep-4</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>3</td>
+  <td>10%</td>
+  <td>11h 37m</td>
+  <td>2026-04-16T02:27:41Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/o4senftr" target="_blank">woven-sweep-4</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>34M</td>
+  <td>repeated</td>
+  <td>51</td>
+  <td>10%</td>
+  <td>4h 1m</td>
+  <td>2026-04-16T05:23:39Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/73gzeu3c" target="_blank">whole-sweep-5</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>34M</td>
+  <td>repeated</td>
+  <td>193</td>
+  <td>10%</td>
+  <td>4h 1m</td>
+  <td>2026-04-16T09:25:53Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/aakp9qg7" target="_blank">graceful-sweep-6</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>34M</td>
+  <td>repeated</td>
+  <td>719</td>
+  <td>10%</td>
+  <td>4h 1m</td>
+  <td>2026-04-16T13:28:01Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/mrug7pu6" target="_blank">copper-sweep-5</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>13</td>
+  <td>10%</td>
+  <td>3h 30m</td>
+  <td>2026-04-16T14:05:15Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/puuasnph" target="_blank">distinctive-sweep-7</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>34M</td>
+  <td>repeated</td>
+  <td>2682</td>
+  <td>10%</td>
+  <td>4h 2m</td>
+  <td>2026-04-16T17:30:15Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/m7u4y7ym" target="_blank">eager-sweep-6</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>13</td>
+  <td>10%</td>
+  <td>11h 37m</td>
+  <td>2026-04-16T17:36:15Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/opzbzhu9" target="_blank">hardy-sweep-8</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>34M</td>
+  <td>repeated</td>
+  <td>10000</td>
+  <td>10%</td>
+  <td>4h 3m</td>
+  <td>2026-04-16T21:33:11Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/cz3dgz3y" target="_blank">winter-sweep-9</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>34M</td>
+  <td>non-repeated</td>
+  <td>1</td>
+  <td>10%</td>
+  <td>4h 1m</td>
+  <td>2026-04-17T01:37:06Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/z2x7ez4t" target="_blank">floral-sweep-7</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>51</td>
+  <td>10%</td>
+  <td>3h 30m</td>
+  <td>2026-04-17T05:16:07Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/8032gt9m" target="_blank">elated-sweep-10</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>34M</td>
+  <td>repeated</td>
+  <td>3</td>
+  <td>10%</td>
+  <td>4h 2m</td>
+  <td>2026-04-17T05:39:20Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/9jdipcjv" target="_blank">glad-sweep-8</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>51</td>
+  <td>10%</td>
+  <td>11h 37m</td>
+  <td>2026-04-17T08:47:22Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/5xnyfiak" target="_blank">silver-sweep-11</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>34M</td>
+  <td>repeated</td>
+  <td>13</td>
+  <td>10%</td>
+  <td>4h 1m</td>
+  <td>2026-04-17T09:42:14Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/bxzuaxd6" target="_blank">desert-sweep-2</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>344M</td>
+  <td>repeated</td>
+  <td>10</td>
+  <td>10%</td>
+  <td>43h 22m</td>
+  <td>2026-04-17T12:53:10Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/8cua7fat" target="_blank">deep-sweep-12</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>34M</td>
+  <td>repeated</td>
+  <td>51</td>
+  <td>10%</td>
+  <td>4h 1m</td>
+  <td>2026-04-17T13:44:26Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/rcut6tf7" target="_blank">icy-sweep-13</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>34M</td>
+  <td>repeated</td>
+  <td>193</td>
+  <td>10%</td>
+  <td>4h 2m</td>
+  <td>2026-04-17T17:46:35Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/hh65kihp" target="_blank">pretty-sweep-9</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>99</td>
+  <td>10%</td>
+  <td>3h 30m</td>
+  <td>2026-04-17T20:25:42Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/ljeccd90" target="_blank">swift-sweep-14</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>34M</td>
+  <td>repeated</td>
+  <td>719</td>
+  <td>10%</td>
+  <td>4h 2m</td>
+  <td>2026-04-17T21:48:59Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/elgy38vk" target="_blank">autumn-sweep-10</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>99</td>
+  <td>10%</td>
+  <td>11h 38m</td>
+  <td>2026-04-17T23:56:42Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/5hd3nuow" target="_blank">cool-sweep-15</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>34M</td>
+  <td>repeated</td>
+  <td>2682</td>
+  <td>10%</td>
+  <td>3h 51m</td>
+  <td>2026-04-18T01:51:27Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/0rimptem" target="_blank">wandering-sweep-16</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>34M</td>
+  <td>repeated</td>
+  <td>10000</td>
+  <td>10%</td>
+  <td>4h 4m</td>
+  <td>2026-04-18T05:43:24Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/gh1jsgz3" target="_blank">light-sweep-11</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>373</td>
+  <td>10%</td>
+  <td>3h 30m</td>
+  <td>2026-04-18T11:35:25Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/yjv28bli" target="_blank">happy-sweep-12</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>373</td>
+  <td>10%</td>
+  <td>11h 37m</td>
+  <td>2026-04-18T15:06:29Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/xcqwdeqc" target="_blank">whole-sweep-13</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>1388</td>
+  <td>10%</td>
+  <td>3h 31m</td>
+  <td>2026-04-19T02:44:44Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/pb3n8z8b" target="_blank">drawn-sweep-14</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>1388</td>
+  <td>10%</td>
+  <td>11h 39m</td>
+  <td>2026-04-19T06:16:30Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/gvzd63gn" target="_blank">chocolate-sweep-3</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>344M</td>
+  <td>repeated</td>
+  <td>50</td>
+  <td>10%</td>
+  <td>43h 24m</td>
+  <td>2026-04-19T08:15:53Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/7mrr1653" target="_blank">lucky-sweep-15</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>193</td>
+  <td>10%</td>
+  <td>3h 31m</td>
+  <td>2026-04-19T17:56:28Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/rq6dvm83" target="_blank">vague-sweep-16</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>193</td>
+  <td>10%</td>
+  <td>11h 44m</td>
+  <td>2026-04-19T21:28:20Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/4890ar44" target="_blank">deep-sweep-17</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>719</td>
+  <td>10%</td>
+  <td>3h 30m</td>
+  <td>2026-04-20T09:12:42Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/v7m92alx" target="_blank">denim-sweep-18</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>719</td>
+  <td>10%</td>
+  <td>11h 38m</td>
+  <td>2026-04-20T12:43:51Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/kp3byycq" target="_blank">grateful-sweep-19</a></td>
+  <td><span style="background:#6b7280;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">finished</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>2682</td>
+  <td>10%</td>
+  <td>3h 38m</td>
+  <td>2026-04-21T00:23:10Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/e53q49n8" target="_blank">kind-sweep-4</a></td>
+  <td><span style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">running</span></td>
+  <td>344M</td>
+  <td>repeated</td>
+  <td>50</td>
+  <td>10%</td>
+  <td>3h 38m (running)</td>
+  <td>2026-04-21T03:40:45Z</td>
+</tr><tr>
+  <td><a href="https://wandb.ai/jchud-stanford-university/hernandez-replication/runs/vrjrce7n" target="_blank">whole-sweep-20</a></td>
+  <td><span style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:4px;font-size:12px">running</span></td>
+  <td>63M</td>
+  <td>repeated</td>
+  <td>2682</td>
+  <td>10%</td>
+  <td>3h 17m (running)</td>
+  <td>2026-04-21T04:02:17Z</td>
+</tr></tbody>
+</table>
+<script>
+let sortDir = {};
+function sortTable(col) {
+  const table = document.getElementById("runs");
+  const tbody = table.tBodies[0];
+  const rows = Array.from(tbody.rows);
+  sortDir[col] = !sortDir[col];
+  rows.sort((a, b) => {
+    let av = a.cells[col].textContent.trim();
+    let bv = b.cells[col].textContent.trim();
+    let an = parseFloat(av), bn = parseFloat(bv);
+    if (!isNaN(an) && !isNaN(bn)) return sortDir[col] ? an - bn : bn - an;
+    return sortDir[col] ? av.localeCompare(bv) : bv.localeCompare(av);
+  });
+  rows.forEach(r => tbody.appendChild(r));
+}
+</script>
+</body></html>

@@ -11,25 +11,26 @@ Sweep structure:
   - trainer_config.overtrain_multiplier: auto-detected
 
 Usage:
-    # List all finished runs with auto-detected config:
-    python plot_double_descent.py --list-runs
+    # Quick: plot all models (finished + running) with output in plots/ dir:
+    python analyze_wandb/plot_double_descent.py --output-dir analyze_wandb/plots
 
-    # Plot all model sizes found (one set of figures per model):
-    python plot_double_descent.py
+    # List all runs with auto-detected config:
+    python analyze_wandb/plot_double_descent.py --list-runs
 
     # Filter to specific sweeps:
-    python plot_double_descent.py --sweeps urnekydr 3p1olv16
+    python analyze_wandb/plot_double_descent.py --sweeps urnekydr 3p1olv16
 
     # Plot only "bot" direction:
-    python plot_double_descent.py --direction bot
+    python analyze_wandb/plot_double_descent.py --direction bot
 
     # Include crashed runs (partial data):
-    python plot_double_descent.py --include-crashed
+    python analyze_wandb/plot_double_descent.py --include-crashed
 """
 
 import argparse
 import re
 import os
+from datetime import datetime
 import numpy as np
 import matplotlib.pyplot as plt
 from collections import defaultdict
@@ -89,7 +90,11 @@ def fetch_runs(entity, project, required_tags=None, name_contains=None,
                 continue
         filtered.append(run)
 
-    print(f"Found {len(filtered)} matching runs (states: {include_states})")
+    n_by_state = defaultdict(int)
+    for r in filtered:
+        n_by_state[r.state] += 1
+    state_summary = ", ".join(f"{s}: {c}" for s, c in sorted(n_by_state.items()))
+    print(f"Found {len(filtered)} matching runs ({state_summary})")
     return filtered
 
 
@@ -166,32 +171,32 @@ def get_run_info(run):
 
 
 def fetch_run_history(run, samples=1500):
-    """Fetch eval/loss and tokens for a run."""
+    """Fetch eval/loss and tokens for a run using scan_history (no pandas needed)."""
     keys = [TEST_LOSS_KEY, TOKENS_KEY]
-    history = run.history(keys=keys, samples=samples)
 
-    if history.empty:
-        print(f"    WARNING: No history for run '{run.name}'")
+    x_list, y_list = [], []
+    last_token = None
+    for row in run.scan_history(keys=keys):
+        loss = row.get(TEST_LOSS_KEY)
+        tokens = row.get(TOKENS_KEY)
+        if tokens is not None:
+            last_token = tokens
+        if loss is not None and last_token is not None:
+            x_list.append(float(last_token))
+            y_list.append(float(loss))
+
+    if not x_list:
+        print(f"    WARNING: No eval data for run '{run.name}'")
         return None, None
 
-    if TOKENS_KEY in history.columns:
-        history[TOKENS_KEY] = history[TOKENS_KEY].ffill()
+    x_arr, y_arr = np.array(x_list), np.array(y_list)
 
-    mask = history[TEST_LOSS_KEY].notna()
-    subset = history.loc[mask]
-    test_loss = subset[TEST_LOSS_KEY].values
+    # Downsample if too many points (keep first, last, and evenly spaced)
+    if len(x_arr) > samples:
+        indices = np.linspace(0, len(x_arr) - 1, samples, dtype=int)
+        x_arr, y_arr = x_arr[indices], y_arr[indices]
 
-    if TOKENS_KEY in subset.columns and subset[TOKENS_KEY].notna().any():
-        x_vals = subset[TOKENS_KEY].values
-    elif "_step" in subset.columns:
-        x_vals = subset["_step"].values.astype(float)
-        print(f"    INFO: Using _step as x-axis for '{run.name}'")
-    else:
-        x_vals = subset.index.values.astype(float)
-        print(f"    INFO: Using row index as x-axis for '{run.name}'")
-
-    valid = ~(np.isnan(x_vals) | np.isnan(test_loss))
-    return x_vals[valid], test_loss[valid]
+    return x_arr, y_arr
 
 
 # =============================================================================
@@ -235,6 +240,15 @@ def _format_token_axis(ax):
     ax.tick_params(axis='x', which='major', labelsize=10, rotation=45)
 
 
+def timestamp_str():
+    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+
+def add_timestamp(fig):
+    fig.text(0.99, 0.01, f"Generated: {timestamp_str()}", fontsize=8,
+             color='gray', ha='right', va='bottom', style='italic')
+
+
 def make_model_label(params, model_name=None):
     if params:
         label = f"{params/1e6:.0f}M Parameter Model"
@@ -250,7 +264,9 @@ def make_model_label(params, model_name=None):
 # PLOTTING (identical logic to original, accepts model_label as arg)
 # =============================================================================
 
-def plot_fig7(data_by_nr, direction, model_label, rep_budget_label, output_path):
+def plot_fig7(data_by_nr, direction, model_label, rep_budget_label, output_path,
+              running_nrs=None):
+    running_nrs = running_nrs or set()
     fig, ax = plt.subplots(1, 1, figsize=(12, 7))
     sorted_nrs = sorted(data_by_nr.keys())
     n = len(sorted_nrs)
@@ -259,8 +275,12 @@ def plot_fig7(data_by_nr, direction, model_label, rep_budget_label, output_path)
 
     for i, nr in enumerate(sorted_nrs):
         x_vals, test_loss = data_by_nr[nr]
+        is_running = nr in running_nrs
+        ls = '--' if is_running else '-'
+        lbl = f"{format_number(nr)}" + (" [running]" if is_running else "")
         ax.plot(x_vals, test_loss, color=colors[i], linewidth=1.8,
-                label=format_number(nr), alpha=0.9, marker='o', markersize=2)
+                label=lbl, alpha=0.6 if is_running else 0.9,
+                linestyle=ls, marker='o', markersize=2)
 
     ax.set_xscale('log')
     _format_token_axis(ax)
@@ -273,13 +293,16 @@ def plot_fig7(data_by_nr, direction, model_label, rep_budget_label, output_path)
     ax.legend(title="num_repeats", fontsize=9, title_fontsize=10,
               loc='upper right', framealpha=0.9)
     ax.grid(True, alpha=0.3, which='both')
+    add_timestamp(fig)
     plt.tight_layout()
     plt.savefig(output_path, dpi=200, bbox_inches='tight')
     print(f"  Saved: {output_path}")
     plt.close()
 
 
-def plot_fig7_zoomed(data_by_nr, direction, model_label, rep_budget_label, output_path):
+def plot_fig7_zoomed(data_by_nr, direction, model_label, rep_budget_label, output_path,
+                     running_nrs=None):
+    running_nrs = running_nrs or set()
     fig, ax = plt.subplots(1, 1, figsize=(12, 7))
     sorted_nrs = sorted(data_by_nr.keys())
     n = len(sorted_nrs)
@@ -295,8 +318,12 @@ def plot_fig7_zoomed(data_by_nr, direction, model_label, rep_budget_label, outpu
         mask = x_vals >= zoom_start
         if mask.any():
             all_y_in_zoom.extend(test_loss[mask])
+        is_running = nr in running_nrs
+        ls = '--' if is_running else '-'
+        lbl = f"{format_number(nr)}" + (" [running]" if is_running else "")
         ax.plot(x_vals, test_loss, color=colors[i], linewidth=2.2,
-                label=format_number(nr), alpha=0.9, marker='o', markersize=3.5)
+                label=lbl, alpha=0.6 if is_running else 0.9,
+                linestyle=ls, marker='o', markersize=3.5)
 
     if all_y_in_zoom:
         y_min, y_max = min(all_y_in_zoom), max(all_y_in_zoom)
@@ -315,24 +342,39 @@ def plot_fig7_zoomed(data_by_nr, direction, model_label, rep_budget_label, outpu
     ax.legend(title="num_repeats", fontsize=9, title_fontsize=10,
               loc='upper right', framealpha=0.9)
     ax.grid(True, alpha=0.3, which='both')
+    add_timestamp(fig)
     plt.tight_layout()
     plt.savefig(output_path, dpi=200, bbox_inches='tight')
     print(f"  Saved: {output_path}")
     plt.close()
 
 
-def plot_fig2(data_by_nr, direction, model_label, rep_budget_label, output_path):
-    nrs, final_losses = [], []
+def plot_fig2(data_by_nr, direction, model_label, rep_budget_label, output_path,
+              running_nrs=None):
+    running_nrs = running_nrs or set()
+    nrs, final_losses, is_running_list = [], [], []
     for nr in sorted(data_by_nr.keys()):
         _, test_loss = data_by_nr[nr]
         if len(test_loss) > 0:
             nrs.append(nr)
             final_losses.append(test_loss[-1])
+            is_running_list.append(nr in running_nrs)
 
     fig, ax = plt.subplots(figsize=(10, 7))
-    ax.plot(nrs, final_losses, 'o-', color='steelblue', linewidth=2.5, markersize=10)
-    for nr, loss in zip(nrs, final_losses):
-        ax.annotate(f'{loss:.3f}', (nr, loss), textcoords="offset points",
+    # Plot finished points as solid, running as open/dashed
+    fin_nrs = [n for n, r in zip(nrs, is_running_list) if not r]
+    fin_loss = [l for l, r in zip(final_losses, is_running_list) if not r]
+    run_nrs = [n for n, r in zip(nrs, is_running_list) if r]
+    run_loss = [l for l, r in zip(final_losses, is_running_list) if r]
+    ax.plot(nrs, final_losses, '-', color='steelblue', linewidth=2.5, alpha=0.5)
+    if fin_nrs:
+        ax.scatter(fin_nrs, fin_loss, color='steelblue', s=100, zorder=5, label='finished')
+    if run_nrs:
+        ax.scatter(run_nrs, run_loss, color='steelblue', s=100, zorder=5,
+                   facecolors='none', edgecolors='steelblue', linewidths=2, label='running')
+    for nr, loss, running in zip(nrs, final_losses, is_running_list):
+        suffix = " *" if running else ""
+        ax.annotate(f'{loss:.3f}{suffix}', (nr, loss), textcoords="offset points",
                     xytext=(0, 12), ha='center', fontsize=9, color='gray')
 
     ax.set_xscale('log')
@@ -342,8 +384,11 @@ def plot_fig2(data_by_nr, direction, model_label, rep_budget_label, output_path)
         f'Final Test Loss vs Repetition Frequency\n'
         f'{model_label}, {rep_budget_label} Repeated — Split "{direction}"',
         fontsize=15)
+    if run_nrs:
+        ax.legend(fontsize=10, framealpha=0.9)
     ax.grid(True, alpha=0.3, which='both')
     ax.tick_params(labelsize=11)
+    add_timestamp(fig)
     plt.tight_layout()
     plt.savefig(output_path, dpi=200, bbox_inches='tight')
     print(f"  Saved: {output_path}")
@@ -351,27 +396,38 @@ def plot_fig2(data_by_nr, direction, model_label, rep_budget_label, output_path)
 
 
 def plot_fig2_repeated_tokens(data_by_nr, direction, model_label, rep_budget_label,
-                               rep_budget, output_path):
-    nrs, final_losses, total_tokens_list = [], [], []
+                               rep_budget, output_path, running_nrs=None):
+    running_nrs = running_nrs or set()
+    nrs, final_losses, total_tokens_list, is_running_list = [], [], [], []
     for nr in sorted(data_by_nr.keys()):
         x_vals, test_loss = data_by_nr[nr]
         if len(test_loss) > 0 and len(x_vals) > 0:
             nrs.append(nr)
             final_losses.append(test_loss[-1])
             total_tokens_list.append(x_vals[-1])
+            is_running_list.append(nr in running_nrs)
 
     total_tokens = np.median(total_tokens_list)
     repeated_unique_tokens = [(rep_budget * total_tokens) / nr for nr in nrs]
 
     fig, ax = plt.subplots(figsize=(10, 7))
-    ax.plot(repeated_unique_tokens, final_losses, 'o-', color='steelblue',
-            linewidth=2.5, markersize=10)
+    # Line connecting all points
+    ax.plot(repeated_unique_tokens, final_losses, '-', color='steelblue',
+            linewidth=2.5, alpha=0.5)
+    # Finished = solid, running = open
+    for tokens, loss, running in zip(repeated_unique_tokens, final_losses, is_running_list):
+        if running:
+            ax.scatter([tokens], [loss], s=100, facecolors='none',
+                       edgecolors='steelblue', linewidths=2, zorder=5)
+        else:
+            ax.scatter([tokens], [loss], s=100, color='steelblue', zorder=5)
 
-    for tokens, loss, nr in zip(repeated_unique_tokens, final_losses, nrs):
+    for tokens, loss, nr, running in zip(repeated_unique_tokens, final_losses, nrs, is_running_list):
         tok_label = (f"{tokens/1e6:.1f}M" if tokens >= 1e6
                      else f"{tokens/1e3:.0f}k" if tokens >= 1e3
                      else f"{tokens:.0f}")
-        ax.annotate(f'{tok_label}\n({nr}x)', (tokens, loss),
+        suffix = " *" if running else ""
+        ax.annotate(f'{tok_label}\n({nr}x){suffix}', (tokens, loss),
                     textcoords="offset points", xytext=(0, 14),
                     ha='center', fontsize=8, color='gray')
 
@@ -386,28 +442,41 @@ def plot_fig2_repeated_tokens(data_by_nr, direction, model_label, rep_budget_lab
     ax.grid(True, alpha=0.3, which='both')
     ax.tick_params(labelsize=11)
     ax.invert_xaxis()
+    add_timestamp(fig)
     plt.tight_layout()
     plt.savefig(output_path, dpi=200, bbox_inches='tight')
     print(f"  Saved: {output_path}")
     plt.close()
 
 
-def plot_combined_fig2(data_top, data_bot, model_label, rep_budget_label, output_path):
+def plot_combined_fig2(data_top, data_bot, model_label, rep_budget_label, output_path,
+                       running_keys=None):
+    running_keys = running_keys or set()
     fig, ax = plt.subplots(figsize=(11, 7))
     for data, direction, color, marker in [
-        (data_top, "split: top", "tab:blue", "o"),
-        (data_bot, "split: bot", "tab:red", "s"),
+        (data_top, "top", "tab:blue", "o"),
+        (data_bot, "bot", "tab:red", "s"),
     ]:
         if not data:
             continue
-        nrs, final_losses = [], []
+        nrs, final_losses, is_running_list = [], [], []
         for nr in sorted(data.keys()):
             _, test_loss = data[nr]
             if len(test_loss) > 0:
                 nrs.append(nr)
                 final_losses.append(test_loss[-1])
-        ax.plot(nrs, final_losses, f'{marker}-', color=color,
-                linewidth=2.5, markersize=10, label=direction)
+                is_running_list.append((direction, nr) in running_keys)
+        ax.plot(nrs, final_losses, '-', color=color, linewidth=2.5, alpha=0.5)
+        fin_n = [n for n, r in zip(nrs, is_running_list) if not r]
+        fin_l = [l for l, r in zip(final_losses, is_running_list) if not r]
+        run_n = [n for n, r in zip(nrs, is_running_list) if r]
+        run_l = [l for l, r in zip(final_losses, is_running_list) if r]
+        if fin_n:
+            ax.scatter(fin_n, fin_l, color=color, marker=marker, s=100, zorder=5,
+                       label=f"split: {direction}")
+        if run_n:
+            ax.scatter(run_n, run_l, facecolors='none', edgecolors=color, marker=marker,
+                       s=100, linewidths=2, zorder=5, label=f"split: {direction} [running]")
 
     ax.set_xscale('log')
     ax.set_xlabel('num_repeats (epochs on repeated tokens)', fontsize=14)
@@ -419,6 +488,149 @@ def plot_combined_fig2(data_top, data_bot, model_label, rep_budget_label, output
     ax.legend(fontsize=12, framealpha=0.9)
     ax.grid(True, alpha=0.3, which='both')
     ax.tick_params(labelsize=11)
+    add_timestamp(fig)
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=200, bbox_inches='tight')
+    print(f"  Saved: {output_path}")
+    plt.close()
+
+
+def plot_all_models_fig2(all_models, output_path):
+    """Plot final test loss vs num_repeats — ALL model sizes, both directions, one chart.
+    Solid lines = top, dashed lines = bot. Color = model size."""
+    fig, ax = plt.subplots(figsize=(14, 8))
+
+    numeric_keys = sorted([k for k in all_models if isinstance(k, (int, float))])
+    str_keys = sorted([k for k in all_models if isinstance(k, str)])
+    sorted_keys = numeric_keys + str_keys
+
+    n = len(sorted_keys)
+    cmap = plt.cm.tab10 if n <= 10 else plt.cm.tab20
+    colors = [cmap(i / max(n - 1, 1)) for i in range(n)]
+    markers = ['o', 's', '^', 'D', 'v', 'P', 'X', 'h', '<', '>'] * 3
+
+    dir_styles = {"top": ("-", "o"), "bot": ("--", "^")}
+
+    for i, param_key in enumerate(sorted_keys):
+        m = all_models[param_key]
+        running_keys = m["running_keys"]
+        short_label = f"{param_key}M" if isinstance(param_key, (int, float)) else (m["model_label"] or f"{param_key}")
+
+        for direction in ["top", "bot"]:
+            data = m[direction]
+            if not data:
+                continue
+            ls, marker = dir_styles[direction]
+
+            nrs, final_losses, is_running_list = [], [], []
+            for nr in sorted(data.keys()):
+                _, test_loss = data[nr]
+                if len(test_loss) > 0:
+                    nrs.append(nr)
+                    final_losses.append(test_loss[-1])
+                    is_running_list.append((direction, nr) in running_keys)
+
+            if not nrs:
+                continue
+
+            ax.plot(nrs, final_losses, linestyle=ls, color=colors[i], linewidth=2, alpha=0.7,
+                    marker=marker, markersize=7, label=f"{short_label} ({direction})")
+
+            # Mark running points with open markers
+            run_nrs = [rn for rn, r in zip(nrs, is_running_list) if r]
+            run_losses = [rl for rl, r in zip(final_losses, is_running_list) if r]
+            if run_nrs:
+                ax.scatter(run_nrs, run_losses, facecolors='none', edgecolors=colors[i],
+                           marker=marker, s=120, linewidths=2.5, zorder=6)
+
+    ax.set_xscale('log')
+    ax.set_xlabel('num_repeats (epochs on repeated tokens)', fontsize=14)
+    ax.set_ylabel('Test Loss (final)', fontsize=14)
+    ax.set_title(
+        f'Final Test Loss vs Repetition — All Model Sizes\n'
+        f'Solid = top split, Dashed = bot split | 10% Repeated Data',
+        fontsize=15)
+    ax.legend(title="Model (split)", fontsize=9, title_fontsize=10,
+              loc='best', framealpha=0.9, ncol=2)
+    ax.grid(True, alpha=0.3, which='both')
+    ax.tick_params(labelsize=11)
+    add_timestamp(fig)
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=200, bbox_inches='tight')
+    print(f"  Saved: {output_path}")
+    plt.close()
+
+
+def plot_all_models_fig7(all_models, output_path):
+    """Plot learning curves — ALL models, both directions, one chart.
+    Color = model size, solid = top, dashed = bot, alpha varies by num_repeats."""
+    fig, ax = plt.subplots(figsize=(16, 9))
+
+    numeric_keys = sorted([k for k in all_models if isinstance(k, (int, float))])
+    str_keys = sorted([k for k in all_models if isinstance(k, str)])
+    sorted_keys = numeric_keys + str_keys
+
+    n = len(sorted_keys)
+    cmap = plt.cm.tab10 if n <= 10 else plt.cm.tab20
+    colors = [cmap(i / max(n - 1, 1)) for i in range(n)]
+
+    # Collect all unique num_repeats across all models and directions
+    all_nrs = set()
+    for param_key in sorted_keys:
+        for direction in ["top", "bot"]:
+            all_nrs.update(all_models[param_key][direction].keys())
+    sorted_all_nrs = sorted(all_nrs)
+    # Map num_repeats to alpha (more repeats = more opaque)
+    nr_to_alpha = {nr: 0.4 + 0.5 * (j / max(len(sorted_all_nrs) - 1, 1))
+                   for j, nr in enumerate(sorted_all_nrs)}
+
+    dir_styles = {"top": "-", "bot": "--"}
+
+    model_legend_added = set()
+    for i, param_key in enumerate(sorted_keys):
+        m = all_models[param_key]
+        short_label = f"{param_key}M" if isinstance(param_key, (int, float)) else (m["model_label"] or f"{param_key}")
+
+        for direction in ["top", "bot"]:
+            data = m[direction]
+            if not data:
+                continue
+
+            for nr in sorted(data.keys()):
+                x_vals, test_loss = data[nr]
+                if len(x_vals) == 0:
+                    continue
+                label = f"{short_label} ({direction})" if (param_key, direction) not in model_legend_added else None
+                model_legend_added.add((param_key, direction))
+                ax.plot(x_vals, test_loss, color=colors[i], linewidth=1.5,
+                        linestyle=dir_styles[direction],
+                        alpha=nr_to_alpha.get(nr, 0.7), label=label)
+
+    ax.set_xscale('log')
+    _format_token_axis(ax)
+    ax.set_xlabel('Tokens Trained', fontsize=14)
+    ax.set_ylabel('Test Loss (eval/loss)', fontsize=14)
+    ax.set_title(
+        f'Learning Curves — All Model Sizes\n'
+        f'Solid = top, Dashed = bot | Alpha varies by num_repeats',
+        fontsize=15)
+
+    # Model/direction legend
+    legend1 = ax.legend(title="Model (split)", fontsize=8, title_fontsize=9,
+                        loc='upper right', framealpha=0.9, ncol=2)
+    ax.add_artist(legend1)
+
+    # Second legend: num_repeats alpha scale
+    from matplotlib.lines import Line2D
+    nr_handles = [Line2D([0], [0], color='gray', linewidth=2,
+                         alpha=nr_to_alpha[nr],
+                         label=f'nr={format_number(nr)}') for nr in sorted_all_nrs]
+    ax.legend(handles=nr_handles, title="num_repeats", fontsize=8, title_fontsize=9,
+              loc='lower left', framealpha=0.9, ncol=2 if len(sorted_all_nrs) > 4 else 1)
+    ax.add_artist(legend1)
+
+    ax.grid(True, alpha=0.3, which='both')
+    add_timestamp(fig)
     plt.tight_layout()
     plt.savefig(output_path, dpi=200, bbox_inches='tight')
     print(f"  Saved: {output_path}")
@@ -441,13 +653,18 @@ def main():
     parser.add_argument("--name-contains", default=None)
     parser.add_argument("--run-ids", nargs="*", default=None)
     parser.add_argument("--include-crashed", action="store_true")
+    parser.add_argument("--exclude-running", action="store_true",
+                        help="Exclude currently running (incomplete) runs")
     parser.add_argument("--list-runs", action="store_true")
-    parser.add_argument("--output-dir", default=".", help="Directory for output plots")
+    parser.add_argument("--output-dir", default="analyze_wandb/plots", help="Directory for output plots")
     args = parser.parse_args()
 
-    states = ("finished",)
+    states = ["finished", "running"]
+    if args.exclude_running:
+        states.remove("running")
     if args.include_crashed:
-        states = ("finished", "crashed")
+        states.append("crashed")
+    states = tuple(states)
 
     print(f"Fetching runs from {args.entity}/{args.project}...")
     runs = fetch_runs(
@@ -506,6 +723,7 @@ def main():
         "sweep_id": None,
         "top": {},
         "bot": {},
+        "running_keys": set(),  # tracks (direction, nr) pairs that are still running
     })
 
     for run in runs:
@@ -557,8 +775,11 @@ def main():
                 print(f"    Duplicate nr={nr} dir={direction}, replacing with longer ({len(x_vals)} pts)")
 
         m[direction][nr] = (x_vals, test_loss)
+        if run.state == "running":
+            m["running_keys"].add((direction, nr))
         print(f"    {len(test_loss)} eval pts, "
-              f"tokens: {x_vals[0]:.0f} — {x_vals[-1]:.0f}")
+              f"tokens: {x_vals[0]:.0f} — {x_vals[-1]:.0f}"
+              f"{' [RUNNING]' if run.state == 'running' else ''}")
 
     if not models:
         print("No usable data found!")
@@ -581,6 +802,8 @@ def main():
         print(f"Model: {model_label}  (key={param_key}, sweep={m['sweep_id']})")
         print(f"{'='*60}")
 
+        running_keys = m["running_keys"]
+
         for direction in ["top", "bot"]:
             if args.direction and direction != args.direction:
                 continue
@@ -589,28 +812,43 @@ def main():
                 print(f"  No data for direction='{direction}' — skipping")
                 continue
 
+            # running nr values for this direction
+            dir_running_nrs = {nr for (d, nr) in running_keys if d == direction}
+
             print(f"\n  direction='{direction}': "
-                  f"{len(data)} num_repeats values: {sorted(data.keys())}")
+                  f"{len(data)} num_repeats values: {sorted(data.keys())}"
+                  f"{f' (running: {sorted(dir_running_nrs)})' if dir_running_nrs else ''}")
 
             plot_fig7(data, direction, model_label, rep_budget_label,
-                      f"{odir}/fig7_{safe_key}_{direction}.png")
+                      f"{odir}/fig7_{safe_key}_{direction}.png",
+                      running_nrs=dir_running_nrs)
 
             plot_fig7_zoomed(data, direction, model_label, rep_budget_label,
-                             f"{odir}/fig7_{safe_key}_{direction}_zoomed.png")
+                             f"{odir}/fig7_{safe_key}_{direction}_zoomed.png",
+                             running_nrs=dir_running_nrs)
 
             if len(data) >= 2:
                 plot_fig2(data, direction, model_label, rep_budget_label,
-                          f"{odir}/fig2_{safe_key}_{direction}.png")
+                          f"{odir}/fig2_{safe_key}_{direction}.png",
+                          running_nrs=dir_running_nrs)
 
                 plot_fig2_repeated_tokens(
                     data, direction, model_label, rep_budget_label, rep_budget,
-                    f"{odir}/fig2_{safe_key}_{direction}_tokens.png")
+                    f"{odir}/fig2_{safe_key}_{direction}_tokens.png",
+                    running_nrs=dir_running_nrs)
 
         # Combined top vs bot
         if m["top"] and m["bot"] and not args.direction:
             print(f"\n  Plotting combined top vs bot for {model_label}")
             plot_combined_fig2(m["top"], m["bot"], model_label, rep_budget_label,
-                               f"{odir}/fig2_{safe_key}_combined.png")
+                               f"{odir}/fig2_{safe_key}_combined.png",
+                               running_keys=running_keys)
+
+    # === ALL-MODELS COMBINED CHARTS (both directions in one chart) ===
+    if len(models) >= 2:
+        print(f"\n  Plotting all-models combined charts (top + bot)")
+        plot_all_models_fig2(models, f"{args.output_dir}/fig2_all_models.png")
+        plot_all_models_fig7(models, f"{args.output_dir}/fig7_all_models.png")
 
     print("\nDone!")
 
